@@ -34,12 +34,12 @@ html,body,h1,h2,h3,h4,h5,h6,label {font-family: "Roboto", sans-serif}
   <div class="w3-sidebar w3-bar-block w3-card-2 w3-animate-left w3-white" style="display:none;" id="mySidebar">
     <div class="w3-bar-item w3-button" onclick="w3_close()">Close &times;</div>
    <c:forEach items="${menus}" var="menu">
-   <div class="w3-button">
+   <a class="w3-button" href="category?name=${menu.name}">
    <div class="w3-wide">
    <strong>${menu.name}</strong>
    </div>
    <p>${menu.desc }</p>
-   </div>
+   </a>
    </c:forEach>
    
   </div>

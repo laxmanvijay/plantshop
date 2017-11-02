@@ -85,4 +85,12 @@ public class ProductDaoImpl implements ProductDao {
 		return sessionfactory.getCurrentSession().get(Product.class,Integer.valueOf(id));
 	}
 
+	@Override
+	public Product getProductByName(String name) {
+		String hql="FROM Product WHERE category=:category";
+		Query query=sessionfactory.getCurrentSession().createQuery(hql);
+		query.setParameter("category", name);
+		return (Product) query.uniqueResult();
+	}
+
 }

@@ -4,8 +4,10 @@ import javax.json.Json;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -52,6 +54,14 @@ public class Controller {
     	String arrayToJson = objectMapper.writeValueAsString(productdao.allProducts());
     
 		return "{\"data\":" + arrayToJson + "}";
+	}
+	
+	@RequestMapping(value="/category")
+	public ModelAndView showProductsInCategory(@RequestParam("name") String name) {
+		ModelAndView mv= new ModelAndView("products");
+		mv.addObject("products",productdao.getProductByCategory(name));
+		mv.addObject("menuName", name);
+		return mv;
 	}
 
 	@RequestMapping(value="/login",method=RequestMethod.POST)
