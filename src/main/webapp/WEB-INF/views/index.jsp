@@ -16,6 +16,8 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet"/>
+  
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
 <style>
 html,body,h1,h2,h3,h4,h5,h6,label {font-family: "Roboto", sans-serif}
 </style>
@@ -26,6 +28,9 @@ html,body,h1,h2,h3,h4,h5,h6,label {font-family: "Roboto", sans-serif}
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
+  
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
 
   
 </head>
@@ -357,11 +362,18 @@ html,body,h1,h2,h3,h4,h5,h6,label {font-family: "Roboto", sans-serif}
 <img src="resources/static/cup_tea.jpg" width="100%"/>
 <br>
 <h4 class="w3-text">${product.pdesc}</h4>
-<!--  <p class="w3-text">Rating:${product.prating}</p>-->
-<c:forEach var="i" begin="1" end="5">
-<span class="fa fa-star w3-text-orange"></span>
-</c:forEach>
-
+<div id="prating${product.id }"></div>
+<script>
+$(function () {
+	   $("#prating${product.id}").rateYo({
+	    starWidth:"20px",
+	    ratedFill:"#FFD300",
+	    normalFill:"#DCDCDC",
+		rating: ${product.prating},
+	    readOnly: true
+	  });
+	});
+</script>
 </div>
 <h4 class="w3-text w3-right">Rs.${product.pprice}</h4>
 
