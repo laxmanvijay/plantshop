@@ -102,19 +102,28 @@ public class Controller {
 	
 								/**** authentication endpoints***/
 	//log in request
-	@RequestMapping(value="/login",method=RequestMethod.POST)
-	public ModelAndView login(@ModelAttribute("email-login") String email,@ModelAttribute("password-login") String password) {
+	@ResponseBody
+	@RequestMapping(value="login",method=RequestMethod.POST)
+	public String login(@ModelAttribute("email-login") String email,@ModelAttribute("password-login") String password) {
+		String loginStatement=registerdao.checkUserPassword(email, password);
+		if(loginStatement=="logged in") {
+			return "login success";
+		}
+		else if(loginStatement=="password error") {
+			return "you have entered an incorrect password";
+		}
+		else {
+			return "you have not registered your account yet!";
+		}
 		
-		
-		
-		
-		return null;
 	}
 	
 	//register request
-	@RequestMapping(value="/register",method=RequestMethod.POST)
-	public ModelAndView register(@ModelAttribute("email") String email,@ModelAttribute("mobile") String mobile,@ModelAttribute("password") String password,@ModelAttribute("name") String name) {
+	@ResponseBody
+	@RequestMapping(value="register",method=RequestMethod.POST)
+	public String register(@ModelAttribute("email") String email,@ModelAttribute("mobile") String mobile,@ModelAttribute("password") String password,@ModelAttribute("name") String name) {
 		
+		register = new Register();
 		register.setEmail(email);
 		register.setName(name);
 		register.setPhone(mobile);
@@ -122,11 +131,11 @@ public class Controller {
 		
 		if(registerdao.createUser(register))
 		{
-			
+			return "success";
 		}
 		else {
-			
+			return "failure";
 		}
-		return null;
+		
 	}
 }

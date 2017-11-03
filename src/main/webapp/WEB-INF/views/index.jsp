@@ -25,7 +25,8 @@ html,body,h1,h2,h3,h4,h5,h6,label {font-family: "Roboto", sans-serif}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
+
   
 </head>
 <body>
@@ -218,7 +219,7 @@ html,body,h1,h2,h3,h4,h5,h6,label {font-family: "Roboto", sans-serif}
 <!--modal box-->
 <div id="id02" class="w3-modal">
 
-  <div class="w3-modal-content w3-card-4 w3-animate-top w3-border w3-border-white">
+  <div id="login_modal" class="w3-modal-content w3-card-4 w3-animate-top w3-border w3-border-white">
         
             <header class="w3-container w3-white">
                  <span onclick="document.getElementById('id02').style.display='none'" class="w3-button w3-hover-red w3-display-topright">&times;</span>
@@ -229,24 +230,33 @@ html,body,h1,h2,h3,h4,h5,h6,label {font-family: "Roboto", sans-serif}
             <div class="w3-container w3-white" style="">
               <br>
               <div id="login">
-                <form action="login" method="post">
+                 <form name="login-form" action="login" method="post">
                 <label for="email">Email</label>
+                 <p id="login-email-error-text"></p>
                 <br>
-                <input class="w3-input" type="email" name="email-login" id="email-login">
+                <input data-validation="email" class="w3-input" type="email" name="email-login" id="email-login">
                 <br>
                 <label for="password">Password</label>
                 <br>
-                <input class="w3-input" type="password" name="password-login" id="password-login">
+                <input data-validation="length" data-validation-length="8-16" class="w3-input" type="password" name="password-login" id="password-login">
                 <br>
+                 <p id="login-password-error-text"></p>
+                 <br>
                 <input class="w3-button w3-black" type="submit" value="Log In"/>
             <br>
               </form>
+<script>
+  $.validate({
+    lang: 'en'
+  });
+</script> 
             </div>
         </div>
       
         
 </div>
 </div>
+
 
 <div id="id01" class="w3-modal">
 <div class="w3-modal-content w3-card-4 w3-animate-top w3-border w3-border-white">
@@ -267,24 +277,29 @@ html,body,h1,h2,h3,h4,h5,h6,label {font-family: "Roboto", sans-serif}
         <br>
         <label for="email">Email</label>
         <br>
-        <input class="w3-input" type="email" name="email" id="email">
+        <input data-validation="email" class="w3-input" type="email" name="email" id="email">
         <br>
          <label for="phone">Mobile Number</label>
         <br>
-        <input class="w3-input" type="text" name="mobile" id="mobile">
+        <input data-validation="number" class="w3-input" type="text" name="mobile" id="mobile">
         <br>
         <label for="password">Password</label>
         <br>
-        <input class="w3-input" type="password" name="password" id="password">
+        <input data-validation="length" data-validation-length="8-20" class="w3-input" type="password" name="password" id="password">
         <br>
         <input class="w3-button w3-black" type="submit" value="Register">
         <br>
         </form>
+        <script>
+  $.validate({
+    lang: 'en'
+  });
+</script> 
       </div>
    </div>
 </div>
 </div>
- 
+
 <h1 class="w3-text w3-wide">Latest Products</h1>
 <hr>
 <!--  
@@ -330,7 +345,7 @@ html,body,h1,h2,h3,h4,h5,h6,label {font-family: "Roboto", sans-serif}
 -->
   <br>
   <br>
-  <input type="text" oninput=w3.filterHTML("#name","#card",this.value) placeholder="search products" class="w3-input w3-text w3-border w3-margin w3-hover-black" style="width:70%"/>
+  <input type="text" oninput=w3.filterHTML("#name","#card",this.value) placeholder="search products" class="w3-input w3-text w3-border w3-margin" style="width:70%"/>
   <button class="w3-button w3-black w3-margin">Search</button>
   <br>
   <hr>
@@ -373,6 +388,7 @@ html,body,h1,h2,h3,h4,h5,h6,label {font-family: "Roboto", sans-serif}
 <!--<script>
     w3.slideshow(".slide23",3000);
 </script>-->
+
  <script>
   function w3_open() {
     document.getElementById("main").style.marginLeft = "18%";

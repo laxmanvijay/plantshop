@@ -39,7 +39,7 @@ private static AnnotationConfigApplicationContext annotate;
 	
 	@Test
 	public void testUserAlreadyRegistered() {
-		assertEquals("success",true,rd.checkUserAlreadyRegistered("durai4@gmail.com"));
+		assertEquals("success",true,rd.checkUserAlreadyRegistered("laxmanvijay24@gmail.com"));
 	}
 	
 	/*

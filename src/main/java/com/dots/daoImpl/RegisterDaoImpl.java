@@ -59,13 +59,13 @@ public class RegisterDaoImpl implements RegisterDao {
 	//getting the data of a single user using email
 	//using hibernate query language(hql)
 	@Override
-	public List<Register> getSingleUserWithEmail(String email) {
+	public Register getSingleUserWithEmail(String email) {
 
 		String hql="FROM Register WHERE email=:email";
 		Query query=sessionfactory.getCurrentSession().createQuery(hql);
 		query.setParameter("email", email);
 		
-		return query.getResultList();
+		return (Register) query.uniqueResult();
 	}
 
 	
@@ -98,17 +98,16 @@ public class RegisterDaoImpl implements RegisterDao {
 	//using hibernate query language
 	@Override
 	public boolean checkUserAlreadyRegistered(String email) {
-		
-		String hql="FROM Register";
-		Query query=sessionfactory.getCurrentSession().createQuery(hql);
 		List<Register> checkList=new ArrayList<>();
+		String hql="FROM Register";
+		Query query=sessionfactory.getCurrentSession().createQuery(hql);	
 		checkList=query.getResultList();
 		
 		//System.out.println(checkList);
 		 
 		//checking if email matches
 		for(Register r:checkList) {
-			if(r.getEmail()==email) return true;
+			if(r.getEmail().equals(email)) return true;
 		}
 		
 		return false;
@@ -117,17 +116,21 @@ public class RegisterDaoImpl implements RegisterDao {
 	
 	//matching the password of the user with email
 	@Override
-	public boolean checkUserPassword(String email, String password) {
+	public String checkUserPassword(String email, String password) {
+		
 		if(checkUserAlreadyRegistered(email)==true) {
-			List<Register> r=new ArrayList<>();
-			r=getSingleUserWithEmail(email);
-			/*if(r.getPassword()==password) return true;
-			else return false;
+			Register user=getSingleUserWithEmail(email);
+			if(user.getPassword().equals(password))
+			 {
+			 return "logged in";
+			}
+			else return "password error";
 		}
-		return false;*/
-			return false;
-	}
-		return false;	
+		else {
+			return "not registered";
+		}
 	
-}
+	}
+
+		
 }
