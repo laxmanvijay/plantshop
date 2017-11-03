@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.dots.dao.RegisterDao;
 import com.dots.dto.Register;
 
+         /*******class for implementing registration*******/
 @Repository("registerdao")
 @Transactional
 public class RegisterDaoImpl implements RegisterDao {
@@ -20,6 +21,8 @@ public class RegisterDaoImpl implements RegisterDao {
 	@Autowired
 	SessionFactory sessionfactory;
 	
+	
+	//creating new user using sessionfactory persist() method
 	@Override
 	public boolean createUser(Register r) {
 		
@@ -34,6 +37,9 @@ public class RegisterDaoImpl implements RegisterDao {
 	
 	}
 
+	
+	//deleting a user using the sessionfactory delete() method
+	//and refreshing the database using the flush method
 	@Override
 	public boolean deleteUser(Register r) {
 		
@@ -49,6 +55,9 @@ public class RegisterDaoImpl implements RegisterDao {
 		}
 	}
 
+	
+	//getting the data of a single user using email
+	//using hibernate query language(hql)
 	@Override
 	public List<Register> getSingleUserWithEmail(String email) {
 
@@ -59,6 +68,9 @@ public class RegisterDaoImpl implements RegisterDao {
 		return query.getResultList();
 	}
 
+	
+	
+	//updating the details of a particular user using sessionfactory update() method
 	@Override
 	public boolean updateUser(Register r) {
 		
@@ -72,12 +84,18 @@ public class RegisterDaoImpl implements RegisterDao {
 		}
 	}
 
+	
+	//getting the details of single user with id using sessionfactory update() method
 	@Override
 	public Register getSingleUserWithId(int id) {
 		
 		return sessionfactory.getCurrentSession().get(Register.class, Integer.valueOf(id));
 	}
 
+	
+	
+	//checking if the user is already registered using the presence of email in database
+	//using hibernate query language
 	@Override
 	public boolean checkUserAlreadyRegistered(String email) {
 		
@@ -85,13 +103,19 @@ public class RegisterDaoImpl implements RegisterDao {
 		Query query=sessionfactory.getCurrentSession().createQuery(hql);
 		List<Register> checkList=new ArrayList<>();
 		checkList=query.getResultList();
-		System.out.println(checkList);
+		
+		//System.out.println(checkList);
+		 
+		//checking if email matches
 		for(Register r:checkList) {
 			if(r.getEmail()==email) return true;
 		}
+		
 		return false;
 	}
 
+	
+	//matching the password of the user with email
 	@Override
 	public boolean checkUserPassword(String email, String password) {
 		if(checkUserAlreadyRegistered(email)==true) {

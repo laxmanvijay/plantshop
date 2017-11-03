@@ -12,7 +12,7 @@ import com.dots.dao.ProductDao;
 import com.dots.dto.Product;
 import com.dots.dto.Register;
 
-
+          /*********implementing methods for a particular product*********/
 @Repository("productdao")
 @Transactional
 public class ProductDaoImpl implements ProductDao {
@@ -20,6 +20,9 @@ public class ProductDaoImpl implements ProductDao {
 	@Autowired
 	SessionFactory sessionfactory;
 	
+	
+	
+	//creating product using the sessionfacctory persist() method
 	@Override
 	public boolean createProduct(Product p) {
 		
@@ -34,6 +37,10 @@ public class ProductDaoImpl implements ProductDao {
 		
 	}
 
+	
+	
+	
+	//retreiving all the products from the database using hql
 	@Override
 	public List<Product> allProducts() {
 		String hql="FROM Product";
@@ -42,6 +49,10 @@ public class ProductDaoImpl implements ProductDao {
 		
 	}
 
+	
+	
+	
+	//updating  a particular product using the update method of sessionfactory
 	@Override
 	public boolean updateProduct(Product p) {
 		try {
@@ -55,6 +66,11 @@ public class ProductDaoImpl implements ProductDao {
 		
 	}
 
+	
+	
+	
+	//deleting a particular product using the delete method of sessionfactory and then refreshing
+	//the database using flush method of sessionfactory
 	@Override
 	public boolean deleteProduct(Product p) {
 		try {
@@ -70,6 +86,9 @@ public class ProductDaoImpl implements ProductDao {
 		
 	}
 
+	
+	
+	//retrieving all the products of a particular category
 	@Override
 	public List<Product> getProductByCategory(String category) {
 		String hql="FROM Product WHERE category=:category";
@@ -79,12 +98,18 @@ public class ProductDaoImpl implements ProductDao {
 		
 	}
 
+	
+	
+	
+	//retrieving a product by it's id
 	@Override
 	public Product getProductById(int id) {
 		
 		return sessionfactory.getCurrentSession().get(Product.class,Integer.valueOf(id));
 	}
 
+	
+	//retrieving a product by it's name
 	@Override
 	public Product getProductByName(String name) {
 		String hql="FROM Product WHERE category=:category";

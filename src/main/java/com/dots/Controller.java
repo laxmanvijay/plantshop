@@ -21,9 +21,13 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
+
+        /****controller class***/
 @org.springframework.stereotype.Controller
 public class Controller {
 	
+	
+	/**dao objects for accessing database**/
 	@Autowired
 	 public MenuDao menudao;
 	
@@ -36,14 +40,10 @@ public class Controller {
 	private Register register;
 	
 	
-	@RequestMapping(value= {"/","home"})
-	public ModelAndView home() {
-		ModelAndView mv=new ModelAndView("index");
-		mv.addObject("menus",menudao.list());
-		return mv;
-		
-	}
 	
+	            /**************json data returning endpoints***************/
+	
+	//returning json of all products
 	@ResponseBody
 	@RequestMapping(value="product/json",method=RequestMethod.GET)
 	public String productjson() throws JsonProcessingException {
@@ -52,10 +52,42 @@ public class Controller {
     	objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
 		
     	String arrayToJson = objectMapper.writeValueAsString(productdao.allProducts());
-    
-		return "{\"data\":" + arrayToJson + "}";
+    	
+    	return arrayToJson;
+		//return "{\"data\":" + arrayToJson + "}";
 	}
 	
+	//returning json data of particular product
+	@ResponseBody
+	@RequestMapping(value="/category/json")
+	public String categoryjson(@RequestParam("name") String name) throws JsonProcessingException {
+		String categoryjson;
+	ObjectMapper objectMapper = new ObjectMapper();
+    	
+    	objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+		
+    	categoryjson = objectMapper.writeValueAsString(productdao.getProductByCategory(name));
+		
+		return categoryjson;
+	}
+	
+
+	
+	
+	              /*********************view returning endpoints*****************/
+	
+	//returning index view
+	@RequestMapping(value= {"/","home"})
+	public ModelAndView home() {
+		ModelAndView mv=new ModelAndView("index");
+		mv.addObject("menus",menudao.list());
+		mv.addObject("products", productdao.allProducts());
+		return mv;
+		
+	}
+	
+
+	//returning a particular category view
 	@RequestMapping(value="/category")
 	public ModelAndView showProductsInCategory(@RequestParam("name") String name) {
 		ModelAndView mv= new ModelAndView("products");
@@ -64,22 +96,37 @@ public class Controller {
 		return mv;
 	}
 
+	
+	
+	
+	
+								/**** authentication endpoints***/
+	//log in request
 	@RequestMapping(value="/login",method=RequestMethod.POST)
 	public ModelAndView login(@ModelAttribute("email-login") String email,@ModelAttribute("password-login") String password) {
 		
-	   
-	    return new ModelAndView("index");
+		
+		
+		
+		return null;
 	}
 	
+	//register request
 	@RequestMapping(value="/register",method=RequestMethod.POST)
 	public ModelAndView register(@ModelAttribute("email") String email,@ModelAttribute("mobile") String mobile,@ModelAttribute("password") String password,@ModelAttribute("name") String name) {
+		
 		register.setEmail(email);
 		register.setName(name);
 		register.setPhone(mobile);
 		register.setPassword(password);
 		
-		
-		
-	  return new ModelAndView("index");
+		if(registerdao.createUser(register))
+		{
+			
+		}
+		else {
+			
+		}
+		return null;
 	}
 }

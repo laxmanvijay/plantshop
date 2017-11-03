@@ -9,7 +9,7 @@
     <title>Plantshop</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="resources/static/Stork-Circle-Favicon.png" type="image/x-icon">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="resources/static/w3.css">
 
 <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -19,8 +19,8 @@
 <style>
 html,body,h1,h2,h3,h4,h5,h6,label {font-family: "Roboto", sans-serif}
 </style>
-   <!-- <script src="./w3.js"></script>
-    <script src="./src/main.js"></script>-->
+    <script src="resources/static/w3.js"></script>
+    <!--  <script src="./src/main.js"></script>-->
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -46,7 +46,7 @@ html,body,h1,h2,h3,h4,h5,h6,label {font-family: "Roboto", sans-serif}
   
   
    <div zclass="w3-main" id="main">
-  <div class="w3-container w3-white w3-animate-bottom" style="/*background:url('resources/static/walnuts_heart_shell_108742_3840x2160.jpg')*/">
+  <div class="w3-container w3-white w3-animate-bottom">
     <button class=" w3-button w3-left w3-wide w3-hover-w3-text-green" id="barButton" onclick="w3_open()">MENU</button>
     
     <button class=" w3-button w3-text w3-display-topmiddle w3-wide w3-hover-white" style="align:center"><i class="fa fa-leaf fa-lg"></i>PLANTSHOP</button>
@@ -54,8 +54,8 @@ html,body,h1,h2,h3,h4,h5,h6,label {font-family: "Roboto", sans-serif}
     <button onclick="document.getElementById('id02').style.display='block'" class="w3-button w3-row w3-wide w3-right w3-hover-w3-text-green">SIGN IN</button>
   
    <button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-row w3-wide w3-right w3-hover-w3-text-green">REGISTER</button>
-   
-  </div>
+   </div>
+  
  <!--
  <nav class="navbar w3-black">
     <div class="container-fluid">
@@ -107,7 +107,7 @@ html,body,h1,h2,h3,h4,h5,h6,label {font-family: "Roboto", sans-serif}
   <!-- Wrapper for slides -->
   <div class="carousel-inner">
     <div class="item active">
-      <img src="resources/static/plants.jpg" alt="" style="width:100%;height:500px">
+      <img src="resources/static/plants.jpg" alt="" style="width:100%;height:600px">
       <div>
     <!--    <button class="w3-button w3-left w3-margin box foo w3-hover-black w3-border w3-border-green" id="barButton" onclick="w3_open()"><i class="fa fa-bars"></i></button>
       
@@ -123,7 +123,7 @@ html,body,h1,h2,h3,h4,h5,h6,label {font-family: "Roboto", sans-serif}
           </h2>
         </div>
         <div class="item">
-      <img src="resources/static/flowers_field_yellow_plants_113564_3840x2160.jpg" alt="" style="width:100%;height:500px">
+      <img src="resources/static/flowers_field_yellow_plants_113564_3840x2160.jpg" alt="" style="width:100%;height:600px">
      <div>
    <!--     <button class="w3-button w3-left w3-margin box foo w3-hover-black w3-border w3-border-green" id="barButton" onclick="w3_open()"><i class="fa fa-bars"></i></button>
       
@@ -138,7 +138,7 @@ html,body,h1,h2,h3,h4,h5,h6,label {font-family: "Roboto", sans-serif}
       <p style="color:white">All agricultural needs</p></h2>
       </div></div>
         <div class="item">
-      <img src="resources/static/coffeecup.jpg" alt="" style="width:100%;height:500px">
+      <img src="resources/static/coffeecup.jpg" alt="" style="width:100%;height:600px">
       <div>
     <!--     <button class="w3-button w3-left w3-margin box foo w3-hover-black w3-border w3-border-green" id="barButton" onclick="w3_open()"><i class="fa fa-bars"></i></button>
       
@@ -154,7 +154,7 @@ html,body,h1,h2,h3,h4,h5,h6,label {font-family: "Roboto", sans-serif}
       </div>
     </div>
         <div class="item">
-      <img src="resources/static/toxic-and-non-toxic-plants.jpg" alt="" style="width:100%;height:500px">
+      <img src="resources/static/toxic-and-non-toxic-plants.jpg" alt="" style="width:100%;height:600px">
       <div>
      <!--   <button class="w3-button w3-left w3-margin box foo w3-hover-black w3-border w3-border-green" id="barButton" onclick="w3_open()"><i class="fa fa-bars"></i></button>
       
@@ -168,7 +168,7 @@ html,body,h1,h2,h3,h4,h5,h6,label {font-family: "Roboto", sans-serif}
            <h2><p style="color:white">Make our environment!!!</p></h2></div>
       </div>
         <div class="item">
-      <img src="resources/static/deer.jpg" alt="" style="width:100%;height:500px">
+      <img src="resources/static/deer.jpg" alt="" style="width:100%;height:600px">
       <div>
       <!--   <button class="w3-button w3-left w3-margin box foo w3-hover-black w3-border w3-border-green" id="barButton" onclick="w3_open()"><i class="fa fa-bars"></i></button>
       
@@ -284,9 +284,10 @@ html,body,h1,h2,h3,h4,h5,h6,label {font-family: "Roboto", sans-serif}
    </div>
 </div>
 </div>
-
-<h3 class="w3-text w3-wide">Products</h3>
+ 
+<h1 class="w3-text w3-wide">Latest Products</h1>
 <hr>
+<!--  
       <table id="product_table" class="w3-table w3-hoverable w3-striped w3-centered">
     <thead>
         <tr>
@@ -307,7 +308,7 @@ html,body,h1,h2,h3,h4,h5,h6,label {font-family: "Roboto", sans-serif}
             <td>${product.pprice}</td>
          </tr>
         </c:forEach>
-    </tbody>-->
+    </tbody>
 </table>
           
          
@@ -326,8 +327,37 @@ html,body,h1,h2,h3,h4,h5,h6,label {font-family: "Roboto", sans-serif}
             });
           </script>
 
+-->
+  <br>
+  <br>
+  <input type="text" oninput=w3.filterHTML("#name","#card",this.value) placeholder="search products" class="w3-input w3-text w3-border w3-margin w3-hover-black" style="width:70%"/>
+  <button class="w3-button w3-black w3-margin">Search</button>
+  <br>
+  <hr>
+  <div class="w3-row-padding">
+<c:forEach items="${products}" var="product">
+<div class="w3-card w3-col m6 l4" id="card">
+<div class="w3-left">
+<h3 class="w3-text" id="name">${product.pname}</h3>
+<img src="resources/static/cup_tea.jpg" width="100%"/>
+<br>
+<h4 class="w3-text">${product.pdesc}</h4>
+<!--  <p class="w3-text">Rating:${product.prating}</p>-->
+<c:forEach var="i" begin="1" end="5">
+<span class="fa fa-star w3-text-orange"></span>
+</c:forEach>
 
+</div>
+<h4 class="w3-text w3-right">Rs.${product.pprice}</h4>
 
+</div>
+</c:forEach>
+</div>
+<style>
+.checked {
+    color: orange;
+}
+</style>
 <br>
 <br>
 <br>

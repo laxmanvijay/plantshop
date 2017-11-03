@@ -11,7 +11,7 @@
     <title>${menuName }</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="resources/static/Stork-Circle-Favicon.png" type="image/x-icon">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="resources/static/w3.css">
 
 <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -54,12 +54,18 @@ html,body,h1,h2,h3,h4,h5,h6,label {font-family: "Roboto", sans-serif}
    <button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-row w3-wide w3-right w3-hover-w3-text-green">REGISTER</button>
    
   </div>
+  <br>
+  
+  
+ <h1>${menuName}</h1>
+  <br>
+  <hr>
   <div class="w3-row-padding">
 <c:forEach items="${products}" var="product">
-<div class="w3-card w3-col m4 l3">
+<div class="w3-card w3-col m6 l4">
 <div class="w3-left">
 <h3 class="w3-text">${product.pname}</h3>
-<img src="resources/static/${product.pimg}" width="100%"/>
+<img src="resources/static/cup_tea.jpg" width="100%"/>
 <p class="w3-text">${product.pdesc}</p>
 <p class="w3-text">${product.prating}</p>
 </div>

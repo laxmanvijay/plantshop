@@ -12,8 +12,6 @@ public interface MenuDao {
 	
 	Menu getSingleMenu(int id);
 	
-	Menu getAllMenu();
-	
 	boolean updateMenu(Menu m);
 	
 	boolean trueDelete(Menu m);

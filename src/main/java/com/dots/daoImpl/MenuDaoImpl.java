@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.dots.dao.MenuDao;
 import com.dots.dto.Menu;
 
+					/****implementation of menu*****/
 @Repository("menudao")
 @Transactional
 public class MenuDaoImpl implements MenuDao {
@@ -20,8 +21,12 @@ public class MenuDaoImpl implements MenuDao {
 	@Autowired 
 	SessionFactory sessionFactory;
 	
+	
+	//list for storing all products
 	static List<Menu> menus=new ArrayList<Menu>();
 	
+	
+	//add a menu using sessionfactory persist() method
 	public boolean addMenu(Menu m) {
 		
 		try {
@@ -34,7 +39,7 @@ public class MenuDaoImpl implements MenuDao {
 		}
 	}
 	
-	
+	//updating a particular menu using sessionfactory update() method
     public boolean updateMenu(Menu m) {
 		
 		try {
@@ -47,6 +52,7 @@ public class MenuDaoImpl implements MenuDao {
 		}
 	}
 
+    //getting all the products stored in the database
 	@Override
 	public List<Menu> list() {
 		String hql = "from Menu";
@@ -57,7 +63,7 @@ public class MenuDaoImpl implements MenuDao {
 	}
 
 	
-	//returning a single row
+	//returning a single row using id via sessionfactory get() meethod
 	@Override
 	public Menu getSingleMenu(int id) {
 		
@@ -65,13 +71,9 @@ public class MenuDaoImpl implements MenuDao {
 	
 	}
 
-	@Override
-	public Menu getAllMenu() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-
+	//complete deletion of a particular entry from the database using sessionfactory delete() method
+	//and refreshing the database using sessionfactory flush() method
 	@Override
 	public boolean trueDelete(Menu m) {
 		try {
