@@ -243,8 +243,8 @@ html,body,h1,h2,h3,h4,h5,h6,label {font-family: "Roboto", sans-serif}
                 <br>
                 <label for="password">Password</label>
                 <br>
-                <input data-validation="length" data-validation-length="8-16" class="w3-input" type="password" name="password-login" id="password-login">
-                <br>
+                <input onmouseover="this.setAttribute('type','text')" onmouseout="this.setAttribute('type','password')" placeholder="hover to show password" data-validation="length" data-validation-length="8-16" class="w3-input" type="password" name="password-login" id="password-login">
+                 <br>
                  <p id="login-password-error-text"></p>
                  <br>
                 <input class="w3-button w3-black" type="submit" value="Log In"/>
@@ -278,19 +278,19 @@ html,body,h1,h2,h3,h4,h5,h6,label {font-family: "Roboto", sans-serif}
           <form action="register" method="post">
         <label for="Name">Name</label>
         <br>
-        <input class="w3-input" type="text" name="name" id="name"/>
+        <input class="w3-input w3-text" type="text" name="name" id="name"/>
         <br>
         <label for="email">Email</label>
         <br>
-        <input data-validation="email" class="w3-input" type="email" name="email" id="email">
+        <input data-validation="email" class="w3-input w3-text" type="email" name="email" id="email">
         <br>
          <label for="phone">Mobile Number</label>
         <br>
-        <input data-validation="number" class="w3-input" type="text" name="mobile" id="mobile">
+        <input data-validation="number" class="w3-input w3-text" type="text" name="mobile" id="mobile">
         <br>
         <label for="password">Password</label>
         <br>
-        <input data-validation="length" data-validation-length="8-20" class="w3-input" type="password" name="password" id="password">
+        <input onmouseover="this.setAttribute('type','text')" onmouseout="this.setAttribute('type','password')"  data-validation="length" data-validation-length="8-20" class="w3-input w3-text" type="password" name="password" id="password">
         <br>
         <input class="w3-button w3-black" type="submit" value="Register">
         <br>
@@ -356,7 +356,9 @@ html,body,h1,h2,h3,h4,h5,h6,label {font-family: "Roboto", sans-serif}
   <hr>
   <div class="w3-row-padding">
 <c:forEach items="${products}" var="product">
-<div class="w3-card w3-col m6 l4" id="card">
+<div class="w3-container w3-col m6 l4 w3-hover-black" id="card">
+<div style="width:90%">
+<div class="w3-card w3-border w3-border-black" style="width:90%">
 <div class="w3-left">
 <h3 class="w3-text" id="name">${product.pname}</h3>
 <img src="resources/static/cup_tea.jpg" width="100%"/>
@@ -377,6 +379,8 @@ $(function () {
 </div>
 <h4 class="w3-text w3-right">Rs.${product.pprice}</h4>
 
+</div>
+</div>
 </div>
 </c:forEach>
 </div>

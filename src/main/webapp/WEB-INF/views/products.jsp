@@ -12,7 +12,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="resources/static/Stork-Circle-Favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="resources/static/w3.css">
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
 <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -27,6 +27,7 @@ html,body,h1,h2,h3,h4,h5,h6,label {font-family: "Roboto", sans-serif}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
 </head>
 <body>
 <div class="w3-sidebar w3-bar-block w3-card-2 w3-animate-left w3-white" style="display:none;" id="mySidebar">
@@ -62,14 +63,26 @@ html,body,h1,h2,h3,h4,h5,h6,label {font-family: "Roboto", sans-serif}
   <hr>
   <div class="w3-row-padding">
 <c:forEach items="${products}" var="product">
-<div class="w3-card w3-col m6 l4">
+<div class="w3-card-2 w3-panel w3-col m6 l4" id="card">
 <div class="w3-left">
-<h3 class="w3-text">${product.pname}</h3>
+<h3 class="w3-text" id="name">${product.pname}</h3>
 <img src="resources/static/cup_tea.jpg" width="100%"/>
-<p class="w3-text">${product.pdesc}</p>
-<p class="w3-text">${product.prating}</p>
+<br>
+<h4 class="w3-text">${product.pdesc}</h4>
+<div id="prating${product.id }"></div>
+<script>
+$(function () {
+	   $("#prating${product.id}").rateYo({
+	    starWidth:"20px",
+	    ratedFill:"#FFD300",
+	    normalFill:"#DCDCDC",
+		rating: ${product.prating},
+	    readOnly: true
+	  });
+	});
+</script>
 </div>
-<h4 class="w3-text w3-right">${product.pprice}</h4>
+<h4 class="w3-text w3-right">Rs.${product.pprice}</h4>
 
 </div>
 </c:forEach>
