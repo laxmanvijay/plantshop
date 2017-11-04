@@ -36,7 +36,7 @@ private static AnnotationConfigApplicationContext annotate;
 		assertEquals("user verified",true,rd.checkUserPassword("durai4@gmail.com","durraj4"));
 		
 	}
-	*/
+	
 	
 	@Test
 	public void testUserAlreadyRegistered() {
