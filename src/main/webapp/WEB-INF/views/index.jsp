@@ -113,7 +113,7 @@ html,body,h1,h2,h3,h4,h5,h6,label {font-family: "Roboto", sans-serif}
   <!-- Wrapper for slides -->
   <div class="carousel-inner">
     <div class="item active">
-      <img src="resources/static/plants.jpg" alt="" style="width:100%;height:600px">
+      <img src="resources/static/plants.jpg" alt="" style="width:100%;height:700px">
       <div>
     <!--    <button class="w3-button w3-left w3-margin box foo w3-hover-black w3-border w3-border-green" id="barButton" onclick="w3_open()"><i class="fa fa-bars"></i></button>
       
@@ -129,7 +129,7 @@ html,body,h1,h2,h3,h4,h5,h6,label {font-family: "Roboto", sans-serif}
           </h2>
         </div>
         <div class="item">
-      <img src="resources/static/flowers_field_yellow_plants_113564_3840x2160.jpg" alt="" style="width:100%;height:600px">
+      <img src="resources/static/flowers_field_yellow_plants_113564_3840x2160.jpg" alt="" style="width:100%;height:700px">
      <div>
    <!--     <button class="w3-button w3-left w3-margin box foo w3-hover-black w3-border w3-border-green" id="barButton" onclick="w3_open()"><i class="fa fa-bars"></i></button>
       
@@ -144,7 +144,7 @@ html,body,h1,h2,h3,h4,h5,h6,label {font-family: "Roboto", sans-serif}
       <p style="color:white">All agricultural needs</p></h2>
       </div></div>
         <div class="item">
-      <img src="resources/static/coffeecup.jpg" alt="" style="width:100%;height:600px">
+      <img src="resources/static/coffeecup.jpg" alt="" style="width:100%;height:700px">
       <div>
     <!--     <button class="w3-button w3-left w3-margin box foo w3-hover-black w3-border w3-border-green" id="barButton" onclick="w3_open()"><i class="fa fa-bars"></i></button>
       
@@ -160,7 +160,7 @@ html,body,h1,h2,h3,h4,h5,h6,label {font-family: "Roboto", sans-serif}
       </div>
     </div>
         <div class="item">
-      <img src="resources/static/toxic-and-non-toxic-plants.jpg" alt="" style="width:100%;height:600px">
+      <img src="resources/static/toxic-and-non-toxic-plants.jpg" alt="" style="width:100%;height:700px">
       <div>
      <!--   <button class="w3-button w3-left w3-margin box foo w3-hover-black w3-border w3-border-green" id="barButton" onclick="w3_open()"><i class="fa fa-bars"></i></button>
       
@@ -174,7 +174,7 @@ html,body,h1,h2,h3,h4,h5,h6,label {font-family: "Roboto", sans-serif}
            <h2><p style="color:white">Make our environment!!!</p></h2></div>
       </div>
         <div class="item">
-      <img src="resources/static/deer.jpg" alt="" style="width:100%;height:600px">
+      <img src="resources/static/deer.jpg" alt="" style="width:100%;height:700px">
       <div>
       <!--   <button class="w3-button w3-left w3-margin box foo w3-hover-black w3-border w3-border-green" id="barButton" onclick="w3_open()"><i class="fa fa-bars"></i></button>
       
@@ -237,13 +237,12 @@ html,body,h1,h2,h3,h4,h5,h6,label {font-family: "Roboto", sans-serif}
               <div id="login">
                  <form name="login-form" action="login" method="post">
                 <label for="email">Email</label>
-                 <p id="login-email-error-text"></p>
                 <br>
-                <input data-validation="email" class="w3-input" type="email" name="email-login" id="email-login">
+                <input placeholder="example@domain.com" data-validation="email" class="w3-input" type="email" name="email-login" id="email-login">
                 <br>
                 <label for="password">Password</label>
                 <br>
-                <input onmouseover="this.setAttribute('type','text')" onmouseout="this.setAttribute('type','password')" placeholder="hover to show password" data-validation="length" data-validation-length="8-16" class="w3-input" type="password" name="password-login" id="password-login">
+                <input onmouseover="this.setAttribute('type','text')" onmouseout="this.setAttribute('type','password')" placeholder="Hover to show password!" data-validation="length" data-validation-length="8-16" class="w3-input" type="password" name="password-login" id="password-login">
                  <br>
                  <p id="login-password-error-text"></p>
                  <br>
@@ -282,7 +281,7 @@ html,body,h1,h2,h3,h4,h5,h6,label {font-family: "Roboto", sans-serif}
         <br>
         <label for="email">Email</label>
         <br>
-        <input data-validation="email" class="w3-input w3-text" type="email" name="email" id="email">
+        <input placeholder="example@domain.com" data-validation="email" class="w3-input w3-text" type="email" name="email" id="email">
         <br>
          <label for="phone">Mobile Number</label>
         <br>
@@ -290,7 +289,7 @@ html,body,h1,h2,h3,h4,h5,h6,label {font-family: "Roboto", sans-serif}
         <br>
         <label for="password">Password</label>
         <br>
-        <input onmouseover="this.setAttribute('type','text')" onmouseout="this.setAttribute('type','password')"  data-validation="length" data-validation-length="8-20" class="w3-input w3-text" type="password" name="password" id="password">
+        <input placeholder="8-20 characters. Hover to show password!" onmouseover="this.setAttribute('type','text')" onmouseout="this.setAttribute('type','password')"  data-validation="length" data-validation-length="8-20" class="w3-input w3-text" type="password" name="password" id="password">
         <br>
         <input class="w3-button w3-black" type="submit" value="Register">
         <br>
@@ -305,7 +304,9 @@ html,body,h1,h2,h3,h4,h5,h6,label {font-family: "Roboto", sans-serif}
 </div>
 </div>
 
-<h1 class="w3-text w3-wide">Latest Products</h1>
+<div class="w3-container w3-border-bottom w3-border-black">
+<h1 class="w3-text">Latest Products</h1>
+</div>
 <hr>
 <!--  
       <table id="product_table" class="w3-table w3-hoverable w3-striped w3-centered">
