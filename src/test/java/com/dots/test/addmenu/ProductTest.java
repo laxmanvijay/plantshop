@@ -1,3 +1,4 @@
+/*
 package com.dots.test.addmenu;
 
 import static org.junit.Assert.assertEquals;
@@ -62,7 +63,8 @@ private static AnnotationConfigApplicationContext annotate;
 		
 		assertEquals("successfully read product by category",1,pd.getProductByCategory("ornamental").size());
 		
-		*/
+		
 	}
 
 }
+*/

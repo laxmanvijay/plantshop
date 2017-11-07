@@ -1,3 +1,4 @@
+/*
 package com.dots.test.addmenu;
 
 import static org.junit.Assert.assertEquals;
@@ -59,13 +60,13 @@ public class AddMenuTest {
 		m=md.getSingleMenu(3);
 		assertEquals("deleted",true,md.trueDelete(m));
 		}
-	*/
+	
 	/*
 	@Test
 	public void readAll() {
 		assertEquals("fetched all",1,md.list().size());
 	}
-	*/
+	
 	
 	@Test
 	public void testCRUDMenu() {
@@ -95,3 +96,4 @@ public class AddMenuTest {
 	}
 	
 }
+*/
