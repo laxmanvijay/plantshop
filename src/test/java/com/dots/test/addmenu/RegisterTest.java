@@ -37,12 +37,14 @@ private static AnnotationConfigApplicationContext annotate;
 	}
 	*/
 	
+	/*
 	@Test
 	public void testUserAlreadyRegistered() {
 		assertEquals("success",true,rd.checkUserAlreadyRegistered("laxmanvijay24@gmail.com"));
 	}
+	*/
 	
-	/*
+	@Test
 	public void testCRUDRegister() {
 		
 		r=new Register();
@@ -50,6 +52,7 @@ private static AnnotationConfigApplicationContext annotate;
 		r.setEmail("laxmanvijay24@gmail.com");
 		r.setPhone("8903040410");
 		r.setPassword("laxmvij24");
+		r.setRole("ADMIN");
 		
 		assertEquals("successfully created a user",true,rd.createUser(r));
 		
@@ -58,11 +61,11 @@ private static AnnotationConfigApplicationContext annotate;
 		r.setEmail("durai4@gmail.com");
 		r.setPhone("8654722789");
 		r.setPassword("durraj4");
-		
+		r.setRole("USER");
 		assertEquals("successfully created a user",true,rd.createUser(r));
 		
-		
-		assertEquals("got single user",1,rd.getSingleUserWithEmail("laxmanvijay24@gmail.com").size());
+		/*
+		assertEquals("got single user",r,rd.getSingleUserWithEmail("laxmanvijay24@gmail.com").);
 		
 		r=rd.getSingleUserWithId(1);
 		r.setName("laxman vijay");
@@ -71,7 +74,6 @@ private static AnnotationConfigApplicationContext annotate;
 		
 		r=rd.getSingleUserWithId(1);
 		assertEquals("got single user",true,rd.deleteUser(r));
-		
+		*/
 	}
-*/
 }

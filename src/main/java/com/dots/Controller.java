@@ -2,12 +2,14 @@ package com.dots;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import com.dots.dao.MenuDao;
 import com.dots.dao.ProductDao;
@@ -78,6 +80,7 @@ public class Controller {
 		ModelAndView mv=new ModelAndView("index");
 		mv.addObject("menus",menudao.list());
 		mv.addObject("products", productdao.allProducts());
+		mv.addObject("loginStatus", 2);
 		return mv;
 		
 	}
@@ -96,29 +99,59 @@ public class Controller {
 	
 	
 	
-								/**** authentication endpoints***/
-	//log in request
-	@ResponseBody
-	@RequestMapping(value="login",method=RequestMethod.POST)
-	public String login(@ModelAttribute("email-login") String email,@ModelAttribute("password-login") String password) {
+	                              /**** authentication endpoints***/
+	//failure
+	//login using json
+	/*@RequestMapping(value="login",method=RequestMethod.POST)
+	public int loginJson(@ModelAttribute("email") String email,@ModelAttribute("password") String password ) {
 		String loginStatement=registerdao.checkUserPassword(email, password);
 		if(loginStatement=="logged in") {
-			return "login success";
+			login(email,password);
 		}
-		else if(loginStatement=="password error") {
-			return "you have entered an incorrect password";
+		else if(loginStatement=="password error"){
+			return 0;
 		}
 		else {
-			return "you have not registered your account yet!";
+			return -1;
 		}
+		return 0;
+	}
+	*/
+	
+	//log in request
+	@RequestMapping(value="login",method=RequestMethod.POST)
+	public ModelAndView login(@ModelAttribute("email-login") String email,@ModelAttribute("password-login") String password) {
+		String loginStatement=registerdao.checkUserPassword(email, password);
 		
+		ModelAndView success,fail;
+		  success=new ModelAndView("cart");//send this if login success
+		 fail=new ModelAndView("index");//else send this
+		
+		 
+		 if(loginStatement=="logged in") {
+			//successful login
+			success.addObject("loginStatus", 1);
+			success.addObject("user", registerdao.getSingleUserWithEmail(email));
+			success.addObject("menus",menudao.list());
+			success.addObject("products", productdao.allProducts());
+			return success;
+		}
+		else if(loginStatement=="password error") {
+			//password error
+			fail.addObject("loginStatus", 0);
+			return fail;
+		}
+		else {
+			//no email in database
+			fail.addObject("loginStatus", -1);
+			return fail;
+		}
 	}
 	
 	//register request
-	@ResponseBody
 	@RequestMapping(value="register",method=RequestMethod.POST)
-	public String register(@ModelAttribute("email") String email,@ModelAttribute("mobile") String mobile,@ModelAttribute("password") String password,@ModelAttribute("name") String name) {
-		
+	public ModelAndView register(@ModelAttribute("email") String email,@ModelAttribute("mobile") String mobile,@ModelAttribute("password") String password,@ModelAttribute("name") String name) {
+		ModelAndView model=new ModelAndView("index");
 		register = new Register();
 		register.setEmail(email);
 		register.setName(name);
@@ -127,11 +160,12 @@ public class Controller {
 		
 		if(registerdao.createUser(register))
 		{
-			return "success";
+			model.addObject("registerStatus", true);
 		}
 		else {
-			return "failure";
+			model.addObject("registerStatus", false);
 		}
 		
+		return model;
 	}
 }
