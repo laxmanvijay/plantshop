@@ -15,7 +15,7 @@
 		</h1>
 		<br>
 		<br>
-		<button style="height:50px;width:200px" class="w3-button w3-black w3-text" onclick="location.href='home'"><h4>Back to home</h4>.</button>
+		<button style="height:50px;width:200px" class="w3-button w3-black w3-text" onclick="location.href='/'"><h4>Back to home</h4>.</button>
 	
 	</div>
 

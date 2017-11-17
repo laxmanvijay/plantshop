@@ -1,69 +1,37 @@
 <div class='preloader'><div class='loaded'>&nbsp;</div></div>
-        <header id="home" class="navbar-fixed-top">
-            <div class="header_top_menu clearfix">	
-                <div class="container">
-                    <div class="row">	
-                        <div class="col-md-5 col-md-offset-3 col-sm-12 text-right">
-                            <div class="call_us_text">
-								<a href=""><i class="fa fa-clock-o"></i> Order Foods 24/7</a>
-								<a href=""><i class="fa fa-phone"></i>061 9876 5432</a>
-							</div>
-                        </div>
-
-                        <div class="col-md-4 col-sm-12">
-                            <div class="head_top_social text-right">
-                                <a href=""><i class="fa fa-facebook"></i></a>
-                                <a href=""><i class="fa fa-google-plus"></i></a>
-                                <a href=""><i class="fa fa-twitter"></i></a>
-                                <a href=""><i class="fa fa-linkedin"></i></a>
-                                <a href=""><i class="fa fa-pinterest-p"></i></a>
-                                <a href=""><i class="fa fa-youtube"></i></a>
-                                <a href=""><i class="fa fa-phone"></i></a>
-                                <a href=""><i class="fa fa-camera"></i></a>
-                            </div>	
-                        </div>
-
-                    </div>			
-                </div>
-            </div>
-
-            <!-- End navbar-collapse-->
-
-            <div class="main_menu_bg">
-                <div class="container"> 
-                    <div class="row">
-                        <nav class="navbar navbar-default">
-                            <div class="container-fluid">
-                                <!-- Brand and toggle get grouped for better mobile display -->
-                                <div class="navbar-header">
-                                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                                        <span class="sr-only">Toggle navigation</span>
-                                        <span class="icon-bar"></span>
-                                        <span class="icon-bar"></span>
-                                        <span class="icon-bar"></span>
-                                    </button>
-                                    <a class="navbar-brand our_logo" href="#"><img src="assets/images/logo.png" alt="" /></a>
-                                </div>
-
-                                <!-- Collect the nav links, forms, and other content for toggling -->
-                                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
-                                    <ul class="nav navbar-nav navbar-right">
-                                        <li><a href="#slider">Home</a></li>
-                                        <li><a href="#abouts">Menu</a></li>
-                                        <li><a href="#features">Features</a></li>
-                                        <li><a href="#portfolio">Delivery</a></li>
-                                        <li><a href="#ourPakeg">News</a></li>
-                                        <li><a href="#mobaileapps">Pages</a></li>
-                                        <li><a href="#" class="booking">Table Booking</a></li>
-                                    </ul>
-                                </div><!-- /.navbar-collapse -->
-                            </div><!-- /.container-fluid -->
-                        </nav>
-                    </div>
-                </div>
-            </div>	
-        </header> <!-- End Header Section -->
+        <header style="width:100%" id="home" class="navbar-fixed-top">
+        
+        	 <div class="w3-sidebar w3-bar-block w3-card-2 w3-animate-left w3-white" style="display:none;" id="mySidebar">
+    <div class="w3-bar-item w3-button" onclick="w3_close()">Close &times;</div>
+   <c:forEach items="${menus}" var="menu">
+   <a href="category?name=${menu.name}">
+   <div class="w3-button">
+   <div class="w3-wide">
+   <strong>${menu.name}</strong>
+   </div>
+   <p>${menu.desc }</p>
+   </div>
+   </a>
+   </c:forEach>
+   
+  </div>
+  
+  
+   <div zclass="w3-main" id="main">
+  <div class="w3-container w3-white w3-animate-bottom" style="/*background:url('resources/static/walnuts_heart_shell_108742_3840x2160.jpg')*/">
+    <button class=" w3-button w3-left w3-wide w3-hover-w3-text-green" id="barButton" onclick="w3_open()">MENU</button>
+    
+    <button class=" w3-button w3-text w3-display-topmiddle w3-wide w3-hover-white" style="align:center"><i class="fa fa-leaf fa-lg"></i>PLANTSHOP</button>
+      
+    <button onclick="document.getElementById('id02').style.display='block'" class="w3-button w3-row w3-wide w3-right w3-hover-w3-text-green">SIGN IN</button>
+  
+    <button onclick="document.getElementById('id03').style.display='block'" class="w3-button w3-row w3-wide w3-right w3-hover-w3-text-green">CREATE PRODUCT</button>
+  
+   <button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-row w3-wide w3-right w3-hover-w3-text-green">REGISTER</button>
+   
+  </div>
+        
+           </header>
         
         <script>
 	function w3_open() {

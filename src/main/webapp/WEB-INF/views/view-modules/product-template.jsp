@@ -9,14 +9,14 @@
 <div class="w3-row-padding">
 	<c:forEach items="${products}" var="product">
 		<div class="w3-container w3-margin-bottom w3-col m6 l4" id="card">
-			<div style="width: 90%">
+			<div style="width: 90%" >
 				<div id="${product.pname}"
 					class="w3-card-4 w3-border w3-border-black w3-hover-black"
 					style="width: 90%">
 					<div>
 						<div class="w3-left">
 							<h3 class="w3-text" id="name">${product.pname}</h3>
-							<img src="resources/static/cup_tea.jpg" width="100%" /> <br>
+							<img src="resources/productImages/${product.pname}.jpg" width="100%" /> <br>
 							<h4 class="w3-text">${product.pdesc}</h4>
 							<div id="prating${product.id }"></div>
 							<script>
@@ -45,6 +45,9 @@ $(function () {
 	</c:forEach>
 </div>
 <script>
+function buy(x){
+	location.href="singleProduct?name="+x.parentElement.id;
+}
 $(function(){
 /*	$.getJSON("http://localhost:4085/plantshop/product/json",function(data){
 		console.log(data);

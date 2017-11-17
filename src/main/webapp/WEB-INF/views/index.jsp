@@ -1,5 +1,4 @@
-<!-- the head -->
-<%@include file="./view-modules/head.jsp"%>
+  <%@include file="./view-modules/head.jsp"%> 
 
 <body style="position:relative">
 
@@ -9,10 +8,18 @@
 
 
 	<!-- carousal view -->
-	<%@include file="./view-modules/carousal.jsp"%>
+ 	<%@include file="./view-modules/carousal.jsp"%> 
+
+<br>
+<br>
+<br>
 
 
 	<div id="app"></div>
+	
+	<!-- modal box for adding products -->
+	<%@include file="./view-modules/createProduct-modal.jsp" %>
+
 
 	<!--modal box for login-->
 	<%@include file="./view-modules/login-modal.jsp"%>

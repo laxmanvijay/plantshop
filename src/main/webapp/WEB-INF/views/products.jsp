@@ -14,10 +14,10 @@
   
   <!-- template for products -->
 	<%@include file="./view-modules/product-template.jsp"%>
-
+	
 
 	<!-- footer and styles -->
-	<%@include file="./view-modules/footer.jsp"%>
-
+<%-- 	<%@include file="./view-modules/footer.jsp"%>
+ --%>
 </body>
 </html>

@@ -1,4 +1,3 @@
-/*
 package com.dots.test.addmenu;
 
 import static org.junit.Assert.assertEquals;
@@ -77,10 +76,5 @@ private static AnnotationConfigApplicationContext annotate;
 		assertEquals("got single user",true,rd.deleteUser(r));
 		*/
 	}
-<<<<<<< HEAD
 }
-=======
 
-}
-*/
->>>>>>> daba6eb0ffacecb8b9e654fe3c122453ce9d5288
