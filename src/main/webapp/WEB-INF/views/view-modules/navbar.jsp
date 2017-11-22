@@ -1,7 +1,9 @@
 <div class='preloader'><div class='loaded'>&nbsp;</div></div>
         <header style="width:100%" id="home" class="navbar-fixed-top">
-        
-        	 <div class="w3-sidebar w3-bar-block w3-card-2 w3-animate-left w3-white" style="display:none;" id="mySidebar">
+   
+   
+   <!-- side bar -->     
+   <div class="w3-sidebar w3-bar-block w3-card-2 w3-animate-left w3-white" style="display:none;" id="mySidebar">
     <div class="w3-bar-item w3-button" onclick="w3_close()">Close &times;</div>
    <c:forEach items="${menus}" var="menu">
    <a href="category?name=${menu.name}">

@@ -19,9 +19,9 @@ http://www.springframework.org/schema/mvc http://www.springframework.org/schema/
 
 	<!-- mapping static resources -->
 	<mvc:resources mapping="/resources/**" location="/resources/" />
-	 <mvc:default-servlet-handler />
+	<mvc:default-servlet-handler />
 
-	
+
 
 
 	<!-- creating bean for returning a view -->
@@ -32,14 +32,11 @@ http://www.springframework.org/schema/mvc http://www.springframework.org/schema/
 
 	</bean>
 
-<!-- <bean id="multipartResolver"
-		class="org.springframework.web.multipart.support.StandardServletMultipartResolver"/>
-	 -->
-	  <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-  
-        <!-- one of the several properties available; the maximum file size in bytes -->
-        <property name="maxUploadSizePerFile" value="5242880"/>
-    </bean>
-	 
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSizePerFile" value="5242880" />
+	</bean>
+
+
 
 </beans>

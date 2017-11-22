@@ -5,7 +5,7 @@
 
 	<!-- navbar and side bar -->
 	<%@include file="./view-modules/navbar.jsp"%>
-
+<div onclick="w3_close()">
 
 	<!-- carousal view -->
  	<%@include file="./view-modules/carousal.jsp"%> 
@@ -46,6 +46,6 @@
 
 	<!-- footer and styles -->
 	<%@include file="./view-modules/footer.jsp"%>
-
+</div>
 </body>
 </html>

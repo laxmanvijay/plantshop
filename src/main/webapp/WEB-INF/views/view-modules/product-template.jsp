@@ -1,10 +1,11 @@
 
 <br>
 <br>
-<input type="text" oninput=w3.filterHTML("#name","#card",this.value) placeholder="search products"
+<input type="text" oninput="w3.filterHTML('#name','#card',this.value)" placeholder="search products"
 	class="w3-input w3-text w3-border w3-margin" style="width: 70%" />
 <button class="w3-button w3-black w3-margin">Search</button>
 <br>
+
 <hr>
 <div class="w3-row-padding">
 	<c:forEach items="${products}" var="product">

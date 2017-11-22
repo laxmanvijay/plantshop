@@ -112,9 +112,9 @@ public class ProductDaoImpl implements ProductDao {
 	//retrieving a product by it's name
 	@Override
 	public Product getProductByName(String name) {
-		String hql="FROM Product WHERE category=:category";
+		String hql="FROM Product WHERE pname=:name";
 		Query query=sessionfactory.getCurrentSession().createQuery(hql);
-		query.setParameter("category", name);
+		query.setParameter("name", name);
 		return (Product) query.uniqueResult();
 	}
 

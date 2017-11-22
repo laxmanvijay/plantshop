@@ -8,6 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,9 @@ public class Controller {
 
 	@Autowired
 	public ProductDao productdao;
+	
+	@Autowired
+	HttpServletRequest request;
 	
 
 	
@@ -104,7 +108,27 @@ public class Controller {
 		mv.addObject("menuName", name);
 		return mv;
 	}
-
+	
+	//returning a particular product
+	@RequestMapping(value="/singleProduct")
+	public ModelAndView showProduct(@RequestParam("name") String pname)
+	{
+		ModelAndView mv= new ModelAndView("singleProduct");
+		mv.addObject("product",productdao.getProductByName(pname));
+		return mv;
+	}
+	
+	//buy product page
+	@RequestMapping(value="/buy")
+	public ModelAndView buyProduct(@RequestParam("name") String name) {
+		ModelAndView mv=new ModelAndView("buy");
+		mv.addObject("product",productdao.getProductByName(name));
+		return mv;
+	}
+	
+	
+	
+	
 	/**** authentication endpoints ***/
 	// failure
 	// login using json
@@ -182,12 +206,12 @@ public class Controller {
 		 file.setMultipartfile(pimg);
 	   
 		 //creating empty image file using the file class
-	   	File f= new File("F:/jee-oxygen/projects/plantshop/src/main/webapp/resources/productImages/"+ pname +".jpg");
+	   	File f= new File(request.getServletContext().getContextPath()+file.getMultipartfile().getOriginalFilename());
 	   	f.createNewFile();
-	 
+	   	
 	   	//copying the uploaded file to the created location
 	   FileCopyUtils.copy(file.getMultipartfile().getBytes(), f);
-	        
+	    System.out.println(f.getPath().toString());
 		
 		 product.setPimg(pname); 
 		
