@@ -23,14 +23,24 @@
   <div class="w3-container w3-white w3-animate-bottom" style="/*background:url('resources/static/walnuts_heart_shell_108742_3840x2160.jpg')*/">
     <button class=" w3-button w3-left w3-wide w3-hover-w3-text-green" id="barButton" onclick="w3_open()">MENU</button>
     
-    <button class=" w3-button w3-text w3-display-topmiddle w3-wide w3-hover-white" style="align:center"><i class="fa fa-leaf fa-lg"></i>PLANTSHOP</button>
-      
-    <button onclick="document.getElementById('id02').style.display='block'" class="w3-button w3-row w3-wide w3-right w3-hover-w3-text-green">SIGN IN</button>
-  
-    <button onclick="document.getElementById('id03').style.display='block'" class="w3-button w3-row w3-wide w3-right w3-hover-w3-text-green">CREATE PRODUCT</button>
-  
-   <button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-row w3-wide w3-right w3-hover-w3-text-green">REGISTER</button>
-   
+    <button onclick="location.href='home'" class=" w3-button w3-text w3-display-topmiddle w3-wide w3-hover-white" style="align:center"><i class="fa fa-leaf fa-lg"></i>PLANTSHOP</button>
+  <c:choose>
+      <c:when test="${pageContext.request.userPrincipal.name!=null}">
+      <button onclick="location.href='cart'" class="w3-button w3-row w3-wide w3-right w3-hover-w3-text-green">CART</button>
+     <button onclick="location.href='logout'" class="w3-button w3-row w3-wide w3-right w3-hover-w3-text-green">LOG OUT</button>
+    
+</c:when>  
+<c:otherwise>
+ <button onclick="location.href='loginpage'" class="w3-button w3-row w3-wide w3-right w3-hover-w3-text-green">SIGN IN</button>
+    
+    <button onclick="location.href='registerpage'" class="w3-button w3-row w3-wide w3-right w3-hover-w3-text-green">REGISTER</button>
+
+ </c:otherwise>
+</c:choose>  
+  <security:authorize access="hasRole('ADMIN')">
+    <button onclick="location.href='adminpage'" class="w3-button w3-row w3-wide w3-right w3-hover-w3-text-green">CREATE PRODUCT</button>
+  </security:authorize>
+     
   </div>
         
            </header>

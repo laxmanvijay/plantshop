@@ -1,32 +1,34 @@
 package com.dots;
 
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 
-import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.util.FileCopyUtils;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.NoHandlerFoundException;
 
+import com.dots.dao.CartDao;
 import com.dots.dao.MenuDao;
 import com.dots.dao.ProductDao;
 import com.dots.dao.RegisterDao;
+import com.dots.dto.Cart;
 import com.dots.dto.FileUpload;
 import com.dots.dto.Product;
 import com.dots.dto.Register;
@@ -47,6 +49,9 @@ public class Controller {
 
 	@Autowired
 	public ProductDao productdao;
+	
+	@Autowired
+	public CartDao cartdao;
 	
 	@Autowired
 	HttpServletRequest request;
@@ -99,6 +104,31 @@ public class Controller {
 		return mv;
 
 	}
+	
+	// returning register view
+		@RequestMapping(value = { "registerpage"})
+		public ModelAndView registerPage() {
+			ModelAndView mv = new ModelAndView("register");
+			return mv;
+		}
+		
+		// returning admin view
+				@RequestMapping(value = { "adminpage"})
+				public ModelAndView adminPage() {
+					ModelAndView mv = new ModelAndView("admin");
+					return mv;
+				}
+		
+		// returning login view
+		@RequestMapping(value =  "loginpage")
+		public ModelAndView loginPage() {
+			ModelAndView mv = new ModelAndView("login");
+			//if(err=="true") {
+				mv.addObject("login_failure","true");
+			//}
+			
+			return mv;
+		}
 
 	// returning a particular category view
 	@RequestMapping(value = "/category")
@@ -130,20 +160,10 @@ public class Controller {
 	
 	
 	/**** authentication endpoints ***/
-	// failure
-	// login using json
-	/*
-	 * @RequestMapping(value="login",method=RequestMethod.POST) public int
-	 * loginJson(@ModelAttribute("email") String email,@ModelAttribute("password")
-	 * String password ) { String
-	 * loginStatement=registerdao.checkUserPassword(email, password);
-	 * if(loginStatement=="logged in") { login(email,password); } else
-	 * if(loginStatement=="password error"){ return 0; } else { return -1; } return
-	 * 0; }
-	 */
+	
 
 	// log in request
-	@RequestMapping(value = "login", method = RequestMethod.POST)
+	@RequestMapping(value = "loginCustom", method = RequestMethod.POST)
 	public ModelAndView login(@ModelAttribute("email-login") String email,
 			@ModelAttribute("password-login") String password) {
 		String loginStatement = registerdao.checkUserPassword(email, password);
@@ -218,4 +238,96 @@ public class Controller {
 		if(productdao.createProduct(product)) return "success";
 		else return "failure";
 	}	
+	
+	@RequestMapping(value="/logout", method = RequestMethod.GET)
+	public ModelAndView logoutPage (HttpServletRequest request, HttpServletResponse response) {
+		ModelAndView mv=new ModelAndView("index");
+	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    if (auth != null){    
+	        new SecurityContextLogoutHandler().logout(request, response, auth);
+	    }
+	    return mv;//You can redirect wherever you want, but generally it's a good practice to show login screen again.
+	}
+	
+	
+						                          /*cart controller*/
+	
+	
+	//show cart
+	@RequestMapping(value="/cart")
+	public ModelAndView showCart() {
+		ModelAndView mv=new ModelAndView("cart");
+		
+		return mv;
+	}
+	
+	//add to cart controller
+	@ResponseBody
+	@RequestMapping(value="/addToCart")
+	public String addToCart(@RequestParam("pname") String pname,@RequestParam("useremail") String useremail)
+	{
+		Cart cart=new Cart();
+		cart.setPname(pname);
+		cart.setUseremail(useremail);
+		int flag = 0;
+		List<Cart> cartItems=new ArrayList<Cart>();
+		cartItems=cartdao.getProducts(useremail);
+		Iterator<Cart> i=cartItems.iterator();
+		while(i.hasNext()) {
+			Cart c=(Cart)i.next();
+			if((c.getPname()==cart.getPname())) {
+				flag=1;
+			}
+			else {
+				flag=2;
+			}
+		}
+		
+		if(flag==2) {
+		cartdao.addToCart(cart);
+		}
+		return "success";
+	}
+	
+	
+	//remove product
+	@ResponseBody
+	@RequestMapping(value="/removeFromCart",method=RequestMethod.POST)
+	public String removeFromCart(@ModelAttribute("pname") String pname,@ModelAttribute("useremail") String useremail)
+	{
+		Cart cart=new Cart();
+		cart.setPname(pname);
+		cart.setUseremail(useremail);
+		
+		
+		
+		cartdao.removeProduct(cart);
+		return "success";
+	}
+	
+	//get all cart items
+	@ResponseBody
+	@RequestMapping(value="/getCartItems")
+	public  String getCartItems(@RequestParam("useremail") String useremail) throws JsonProcessingException {
+		ObjectMapper objectMapper = new ObjectMapper();
+
+		objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+
+		List<Cart> cartItems=new ArrayList<Cart>();
+		cartItems=cartdao.getProducts(useremail);
+		
+		List<Product> productItems = new ArrayList<Product>();
+		Iterator i=cartItems.iterator();
+		
+		while(i.hasNext()) {
+			Cart c=(Cart)i.next();
+			productItems.add(productdao.getProductByName(c.getPname()));
+		}
+		
+		String arrayToJson = objectMapper.writeValueAsString(productItems);
+
+		return arrayToJson;
+	}
+	
+	
 }

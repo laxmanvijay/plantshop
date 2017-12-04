@@ -46,6 +46,7 @@
 
 	<!-- footer and styles -->
 	<%@include file="./view-modules/footer.jsp"%>
+	
 </div>
 </body>
 </html>

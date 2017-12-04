@@ -13,6 +13,9 @@
 <link rel="stylesheet" href="resources/static/w3.css"/>
 <link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Roboto'/>
 
+ 
+
+
 
 <style>
 html, body, h1, h2, h3, h4, h5, h6, label {
@@ -26,6 +29,7 @@ html, body, h1, h2, h3, h4, h5, h6, label {
 <link href='https://fonts.googleapis.com/css?family=Playball' rel='stylesheet' type='text/css'>
 
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
