@@ -21,24 +21,34 @@
   
    <div zclass="w3-main" id="main">
   <div class="w3-container w3-white w3-animate-bottom" style="/*background:url('resources/static/walnuts_heart_shell_108742_3840x2160.jpg')*/">
-    <button class=" w3-button w3-left w3-wide w3-hover-w3-text-green" id="barButton" onclick="w3_open()">MENU</button>
+    <button class=" w3-button w3-left w3-wide w3-hover-black" id="barButton" onclick="w3_open()">MENU</button>
     
     <button onclick="location.href='home'" class=" w3-button w3-text w3-display-topmiddle w3-wide w3-hover-white" style="align:center"><i class="fa fa-leaf fa-lg"></i>PLANTSHOP</button>
   <c:choose>
       <c:when test="${pageContext.request.userPrincipal.name!=null}">
-      <button onclick="location.href='cart'" class="w3-button w3-row w3-wide w3-right w3-hover-w3-text-green">CART</button>
-     <button onclick="location.href='logout'" class="w3-button w3-row w3-wide w3-right w3-hover-w3-text-green">LOG OUT</button>
+      <div class=" w3-right w3-dropdown-hover">
+     <button class="w3-button w3-row w3-wide w3-hover-black">${pageContext.request.userPrincipal.name}</button>
+   		 <div id="Demo" class="w3-dropdown-content w3-bar-block w3-border">
+    <button onclick="location.href='cart'" class="w3-bar-item w3-button w3-hover-black">My Cart</button>
+    <button onclick="location.href='orders'" class="w3-bar-item w3-button w3-hover-black">My Orders</button>
     
+    <security:authorize access="hasRole('ADMIN')">
+     <button onclick="location.href='orders'" class="w3-bar-item w3-button w3-hover-black">All Orders By Customers</button>
+    </security:authorize>
+     <button onclick="location.href='logout'" class="w3-bar-item w3-button w3-hover-black">Log Out</button>
+  </div>
+   
+    </div>
 </c:when>  
 <c:otherwise>
- <button onclick="location.href='loginpage'" class="w3-button w3-row w3-wide w3-right w3-hover-w3-text-green">SIGN IN</button>
+ <button onclick="location.href='loginpage'" class="w3-button w3-row w3-wide w3-right w3-hover-black">SIGN IN</button>
     
-    <button onclick="location.href='registerpage'" class="w3-button w3-row w3-wide w3-right w3-hover-w3-text-green">REGISTER</button>
+    <button onclick="location.href='registerpage'" class="w3-button w3-row w3-wide w3-right w3-hover-black">REGISTER</button>
 
  </c:otherwise>
 </c:choose>  
   <security:authorize access="hasRole('ADMIN')">
-    <button onclick="location.href='adminpage'" class="w3-button w3-row w3-wide w3-right w3-hover-w3-text-green">CREATE PRODUCT</button>
+    <button onclick="location.href='adminpage'" class="w3-button w3-row w3-wide w3-right w3-hover-black">CREATE PRODUCT</button>
   </security:authorize>
      
   </div>

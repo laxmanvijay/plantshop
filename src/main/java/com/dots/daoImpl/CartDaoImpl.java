@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.dots.dao.CartDao;
 import com.dots.dto.Cart;
+import com.dots.dto.Register;
 
 @Repository("cartdao")
 @Transactional
@@ -32,12 +33,11 @@ public class CartDaoImpl implements CartDao {
 	}
 
 	@Override
-	public List<Cart> getProducts(String useremail) {
-		String hql="from Cart where useremail=:useremail";
+	public List<Cart> getProducts(Register user) {
+		String hql="from Cart where user=:user";
 		Query query=sessionfactory.getCurrentSession().createQuery(hql);
-		query.setParameter( "useremail",useremail);
+		query.setParameter( "user",user);
 		return query.getResultList();
-	
 	}
 
 	@Override

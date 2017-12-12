@@ -13,7 +13,7 @@
 		<form action="addProduct" method="post" enctype="multipart/form-data">
 						<label for="Name">Product Name</label> <br> 
 						<input
-							data-validation="length" data-validation-length="1-100"
+							data-validation="length" data-validation-length="1-100" onblur="checkProduct(this)"
 							class="w3-input w3-text" type="text" name="pname" id="pname" /> <br>
 						<label for="category">Category</label> <br> 
 						<input
@@ -58,5 +58,22 @@
 </div>
 	</div>
 	</div>
+	<script>
+		function checkProduct(product){
+			$.ajax({
+				type:"get",
+				url:"http://localhost:4085/plantshop/checkProduct?name="+product.value,
+				success:(data)=>{
+					console.log(data);
+					if(data=="yes"){
+						toastr.error("product already exists!Please provide a different product");
+						product.value="";
+						}
+				}
+			})
+		}
+	
+	
+	</script>
 </body>
 </html>

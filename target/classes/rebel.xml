@@ -21,6 +21,11 @@
 			<dir name="F:/jee-oxygen/projects/plantshop/src/main/webapp">
 			</dir>
 		</link>
+		<link target="/">
+			<dir name="F:/jee-oxygen/projects/plantshop/target">
+				<exclude name="/"/>
+			</dir>
+		</link>
 	</web>
 
 </application>

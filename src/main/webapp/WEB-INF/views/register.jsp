@@ -18,7 +18,7 @@
 			<label for="email">Email</label> <br> 
 			<input
 				placeholder="example@domain.com" data-validation="email"
-				class="w3-input w3-text" type="email" name="email" id="email">
+				class="w3-input w3-text" type="email" name="email" id="email" onblur="checkRegister(this)">
 			<br> <label for="phone">Mobile Number</label> <br>
 			 <input
 				data-validation="number" class="w3-input w3-text" type="text"
@@ -37,5 +37,21 @@
 </div>
 </div>
 	</div>
+<script>
+function checkRegister(register){
+	
+	$.ajax({
+		type:"get",
+		url:"http://localhost:4085/plantshop/checkRegister?name="+register.value,
+		success:(data)=>{
+			if(data=="yes"){
+				toastr.error("email already exists! you are now redirected to login page");
+			setTimeout(()=>{window.location.href="loginpage";},1000);	
+			}
+		}
+	})
+}
+
+</script>
 </body>
 </html>

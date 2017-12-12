@@ -14,6 +14,8 @@ public class Register {
 	private String email;
 	private String phone;
 	private String role;
+
+	
 	private boolean enabled;
 	
 	public boolean getEnabled() {

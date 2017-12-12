@@ -31,6 +31,9 @@
 						to cart!</button>
 					<button id="{{pname}}" class="w3-button w3-black" onclick="buy(this)">Buy
 						it Now!</button>
+					<security:authorize access="hasRole('ADMIN')">
+						<button id="{{pname}}" class="w3-button w3-black" onclick="deleteItem(this)">Delete Product</button>
+					</security:authorize>
 				</div>
 			</div>
 		</div>
@@ -63,9 +66,13 @@ var template=$("#template").html();
 				$.ajax({
 					type:"GET",
 					url:"http://localhost:4085/plantshop/addToCart?pname="+product.id+"&useremail=${pageContext.request.userPrincipal.name}",
-					success:function(products){
+					success:function(res){
+						if(res=="success"){
 						toastr.success("added to cart");
-
+						}
+						else{
+							toastr.warning("product already added to cart");
+						}
 					}
 				});
 				
@@ -77,10 +84,25 @@ var template=$("#template").html();
 	</script>
 <script>
 function buy(x){
-	location.href="singleProduct?name="+x.parentElement.id;
+	location.href="singleProduct?name="+x.id;
 }
-var cartItem=[];
-
+function deleteItem(x){
+			location.href="delete?name="+x.id;
+			toastr.success("deleted"+x.id);
+			setTimeOut(function(){
+				$.ajax({
+				type:"GET",
+				url:"http://localhost:4085/plantshop/product/json",
+				success:function(products){
+					var products=$.parseJSON(products);
+					$.each(products,function(i,product){
+						$('#append').append(Mustache.render(template,product));
+					})
+					
+				}
+			});
+			},500);
+}
 </script>
 <style>
 .checked {

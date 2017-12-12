@@ -1,4 +1,4 @@
-/*
+
 package com.dots.test.addmenu;
 
 import static org.junit.Assert.assertEquals;
@@ -27,7 +27,7 @@ public class AddMenuTest {
 		
 		md=(MenuDao)annotate.getBean("menudao");
 	}
-	/*
+	
 	@Test
 	public void testAddMenu() {
 		m=new Menu();
@@ -36,7 +36,7 @@ public class AddMenuTest {
 	
 		assertEquals("success",true,md.addMenu(m));
 	}
-	*/
+	
 	/*
 	@Test
 	public void testSingleMenu() {
@@ -67,7 +67,7 @@ public class AddMenuTest {
 		assertEquals("fetched all",1,md.list().size());
 	}
 	
-	
+	*/
 	@Test
 	public void testCRUDMenu() {
 		m=new Menu();
@@ -94,6 +94,6 @@ public class AddMenuTest {
 		
 		assertEquals("fetched all",1,md.list().size());
 	}
-	
+
 }
-*/
+

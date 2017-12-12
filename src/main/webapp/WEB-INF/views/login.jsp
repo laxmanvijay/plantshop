@@ -10,7 +10,7 @@
 		<div class="w3-half w3-display-middle">
    
 		
-			<form name="login-form" method="POST" action="perform_login">
+			<form name="login-form" method="POST" action="login">
 				<label for="email">Email</label> <br> <input
 					placeholder="example@domain.com" class="w3-input" type="email"
 					name="username" id="username"> <br> <label
@@ -19,7 +19,7 @@
 					onmouseout="this.setAttribute('type','password')"
 					placeholder="Hover to show password!" data-validation="length"
 					data-validation-length="8-16" class="w3-input" type="password"
-					name="password-login" id="password"> <br>
+					name="password" id="password"> <br>
 				<p id="login-password-error-text"></p>
 				<br> <input type="submit" class="w3-button w3-black"
 					value="Log In" /> <br> <input type="hidden"

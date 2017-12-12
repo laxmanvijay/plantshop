@@ -31,8 +31,8 @@ $(function () {
 
 		<h3 class="w3-text">${product.pdesc }</h3>
 		
-		<button class="w3-button w3-teal w3-big" id="${product.pname}" onclick="buyNow(this)">
-		<h3>Proceed to Buy!</h3>
+		<button class="w3-button w3-black w3-big" id="${product.pname}" onclick="buyNow(this)">
+		<h5 class="w3-text w3-wide">PROCEED TO PAYMENT</h5>
 		</button>
 	
 	</div>

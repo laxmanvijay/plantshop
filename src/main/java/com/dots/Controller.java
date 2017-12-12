@@ -3,7 +3,6 @@ package com.dots;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -26,10 +25,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.dots.dao.CartDao;
 import com.dots.dao.MenuDao;
+import com.dots.dao.OrdersDao;
 import com.dots.dao.ProductDao;
 import com.dots.dao.RegisterDao;
 import com.dots.dto.Cart;
 import com.dots.dto.FileUpload;
+import com.dots.dto.Orders;
 import com.dots.dto.Product;
 import com.dots.dto.Register;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -52,6 +53,9 @@ public class Controller {
 	
 	@Autowired
 	public CartDao cartdao;
+	
+	@Autowired
+	public OrdersDao ordersdao;
 	
 	@Autowired
 	HttpServletRequest request;
@@ -91,6 +95,32 @@ public class Controller {
 
 		return categoryjson;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "checkProduct")
+	public String checkProduct(@RequestParam("name") String name) throws JsonProcessingException {
+		String flag = "no";
+		List<Product> productList=productdao.allProducts();
+		Iterator p=productList.iterator();
+		while(p.hasNext()) {
+			Product product=(Product)p.next();
+			if(name.equals(product.getPname())) {
+				flag="yes";
+			}
+		}
+		return flag;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "checkRegister")
+	public String checkRegister(@RequestParam("name") String name) throws JsonProcessingException {
+		String flag="no";
+			boolean b=registerdao.checkUserAlreadyRegistered(name);
+			if(b==true) {
+				flag="yes";
+			}
+		return flag;
+	}
 
 	/********************* view returning endpoints *****************/
 
@@ -117,6 +147,64 @@ public class Controller {
 				public ModelAndView adminPage() {
 					ModelAndView mv = new ModelAndView("admin");
 					return mv;
+				}
+				
+				// returning payment view
+				@RequestMapping(value = { "payment"})
+				public ModelAndView paymentPage() {
+					ModelAndView mv = new ModelAndView("payment");
+					return mv;
+				}
+				
+				// returning payment view
+				@RequestMapping(value = { "orders"})
+				public ModelAndView ordersPage() {
+					ModelAndView mv = new ModelAndView("orders");
+					return mv;
+				}
+				
+				// returning orders data for users
+				@ResponseBody
+				@RequestMapping(value = { "ordersItems"})
+				public String ordersPage(@RequestParam("name") String Email) throws JsonProcessingException {
+					List<Orders> lo=new ArrayList<>();
+					ObjectMapper objectMapper = new ObjectMapper();
+					List<Product> productItems=new ArrayList<>();
+					objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+					
+
+					if(!Email.equals("laxman@gmail.com")) {
+					lo=ordersdao.getOrdersByEmail(Email);
+					}
+					else {
+						lo=ordersdao.getAllOrders();
+					}
+					
+					Iterator<Orders> i=lo.iterator();
+					
+					while(i.hasNext()) {
+						Orders c=(Orders)i.next();
+						productItems.add(productdao.getProductByName(c.getProductName()));
+					}
+					return objectMapper.writeValueAsString(productItems);
+				}
+				
+				// placing orders
+				@RequestMapping(value ="placeOrder")
+				public String orderPage(@RequestParam("name") String name) {
+					Register user=registerdao.getSingleUserWithEmail(name);
+					List<Cart> cartItem=cartdao.getProducts(user);
+					Orders orders;
+					Iterator<Cart> i=cartItem.iterator();
+					while(i.hasNext()) {
+						Cart cart=(Cart)i.next();
+						orders=new Orders();
+						orders.setProductName(cart.getPname());
+						orders.setUser(name);
+						ordersdao.createOrder(orders);
+						cartdao.removeProduct(cart);
+					}
+					return "success";
 				}
 		
 		// returning login view
@@ -151,13 +239,18 @@ public class Controller {
 	//buy product page
 	@RequestMapping(value="/buy")
 	public ModelAndView buyProduct(@RequestParam("name") String name) {
-		ModelAndView mv=new ModelAndView("buy");
+		ModelAndView mv=new ModelAndView("payment");
 		mv.addObject("product",productdao.getProductByName(name));
 		return mv;
 	}
 	
-	
-	
+	@RequestMapping(value="/delete")
+	public ModelAndView deleteProduct(@RequestParam("name") String name) {
+		ModelAndView mv=new ModelAndView("index");
+		Product p=productdao.getProductByName(name);
+		mv.addObject("product",productdao.deleteProduct(p));
+		return mv;
+	}
 	
 	/**** authentication endpoints ***/
 	
@@ -192,7 +285,7 @@ public class Controller {
 
 	// register request
 	@RequestMapping(value = "register", method = RequestMethod.POST)
-	public ModelAndView register(@ModelAttribute("email") String email, @ModelAttribute("mobile") String mobile,
+	public ModelAndView register(@ModelAttribute("email") String email,@ModelAttribute("address") String address, @ModelAttribute("mobile") String mobile,
 			@ModelAttribute("password") String password, @ModelAttribute("name") String name) {
 		ModelAndView model = new ModelAndView("index");
 		register = new Register();
@@ -200,6 +293,8 @@ public class Controller {
 		register.setName(name);
 		register.setPhone(mobile);
 		register.setPassword(password);
+		register.setEnabled(true);
+		register.setRole("ROLE_USER");
 
 		if (registerdao.createUser(register)) {
 			model.addObject("registerStatus", true);
@@ -246,7 +341,7 @@ public class Controller {
 	    if (auth != null){    
 	        new SecurityContextLogoutHandler().logout(request, response, auth);
 	    }
-	    return mv;//You can redirect wherever you want, but generally it's a good practice to show login screen again.
+	    return mv;
 	}
 	
 	
@@ -266,16 +361,17 @@ public class Controller {
 	@RequestMapping(value="/addToCart")
 	public String addToCart(@RequestParam("pname") String pname,@RequestParam("useremail") String useremail)
 	{
+		Register user=registerdao.getSingleUserWithEmail(useremail);
 		Cart cart=new Cart();
 		cart.setPname(pname);
-		cart.setUseremail(useremail);
-		int flag = 0;
+		cart.setUser(user);
+		int flag = 2;
 		List<Cart> cartItems=new ArrayList<Cart>();
-		cartItems=cartdao.getProducts(useremail);
+		cartItems=cartdao.getProducts(user);
 		Iterator<Cart> i=cartItems.iterator();
 		while(i.hasNext()) {
 			Cart c=(Cart)i.next();
-			if((c.getPname()==cart.getPname())) {
+			if((c.getPname().equals(cart.getPname()))) {
 				flag=1;
 			}
 			else {
@@ -285,24 +381,30 @@ public class Controller {
 		
 		if(flag==2) {
 		cartdao.addToCart(cart);
-		}
 		return "success";
+		}
+		else {
+			return "already";
+		}
 	}
 	
 	
 	//remove product
 	@ResponseBody
-	@RequestMapping(value="/removeFromCart",method=RequestMethod.POST)
-	public String removeFromCart(@ModelAttribute("pname") String pname,@ModelAttribute("useremail") String useremail)
+	@RequestMapping(value="/removeFromCart")
+	public String removeFromCart(@RequestParam("pname") String pname,@RequestParam("useremail") String useremail)
 	{
+		Register user=registerdao.getSingleUserWithEmail(useremail);
 		Cart cart=new Cart();
 		cart.setPname(pname);
-		cart.setUseremail(useremail);
-		
-		
-		
-		cartdao.removeProduct(cart);
+		cart.setUser(user);
+		boolean b=cartdao.removeProduct(cart);
+		if(b==true) {
 		return "success";
+		}
+		else {
+			return "failure";
+		}
 	}
 	
 	//get all cart items
@@ -314,7 +416,8 @@ public class Controller {
 		objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
 
 		List<Cart> cartItems=new ArrayList<Cart>();
-		cartItems=cartdao.getProducts(useremail);
+		Register user=registerdao.getSingleUserWithEmail(useremail);
+		cartItems=cartdao.getProducts(user);
 		
 		List<Product> productItems = new ArrayList<Product>();
 		Iterator i=cartItems.iterator();
