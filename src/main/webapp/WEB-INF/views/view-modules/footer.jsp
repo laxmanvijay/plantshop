@@ -1,6 +1,7 @@
 <footer class="w3-black w3-center"
 	style="height:50px;position:absolute;bottom:0;width:100%; background: url('resources/static/3570455-4k-wallpaper-grass.jpg')">
 	<p class="w3-text w3-wide">PLANTSHOP</p>
+	<p class="w3-text w3-wide" onclick="location.href='feedbackflow'">feedback</p>
 </footer>
 
 

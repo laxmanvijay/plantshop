@@ -23,11 +23,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.dots.dao.AddressDao;
 import com.dots.dao.CartDao;
 import com.dots.dao.MenuDao;
 import com.dots.dao.OrdersDao;
 import com.dots.dao.ProductDao;
 import com.dots.dao.RegisterDao;
+import com.dots.dto.Address;
 import com.dots.dto.Cart;
 import com.dots.dto.FileUpload;
 import com.dots.dto.Orders;
@@ -56,6 +58,9 @@ public class Controller {
 	
 	@Autowired
 	public OrdersDao ordersdao;
+	
+	@Autowired
+	public AddressDao addressdao;
 	
 	@Autowired
 	HttpServletRequest request;
@@ -285,7 +290,7 @@ public class Controller {
 
 	// register request
 	@RequestMapping(value = "register", method = RequestMethod.POST)
-	public ModelAndView register(@ModelAttribute("email") String email,@ModelAttribute("address") String address, @ModelAttribute("mobile") String mobile,
+	public ModelAndView register(@ModelAttribute("address") String a,@ModelAttribute("email") String email,@ModelAttribute("address") String address, @ModelAttribute("mobile") String mobile,
 			@ModelAttribute("password") String password, @ModelAttribute("name") String name) {
 		ModelAndView model = new ModelAndView("index");
 		register = new Register();
@@ -301,6 +306,10 @@ public class Controller {
 		} else {
 			model.addObject("registerStatus", false);
 		}
+		Address address1=new Address();
+		address1.setAddress(a);
+		address1.setUser(register);
+		addressdao.createAddress(address1);
 
 		return model;
 	}
@@ -308,7 +317,8 @@ public class Controller {
 			                             /*Creating products*/
 	@ResponseBody
 	@RequestMapping(value="/addProduct",method=RequestMethod.POST)
-	public String createProduct( HttpSession session,@ModelAttribute("pimg") MultipartFile  pimg,@ModelAttribute("pname") String pname,@ModelAttribute("pdesc") String pdesc,@ModelAttribute("pprice") String pprice,@ModelAttribute("prating") String prating,@ModelAttribute("category") String category) throws IOException{
+	public ModelAndView createProduct( HttpSession session,@ModelAttribute("pimg") MultipartFile  pimg,@ModelAttribute("pname") String pname,@ModelAttribute("pdesc") String pdesc,@ModelAttribute("pprice") String pprice,@ModelAttribute("prating") String prating,@ModelAttribute("category") String category) throws IOException{
+		ModelAndView mv=new ModelAndView("index");
 		product = new Product();
 		product.setCategory(category);
 		product.setPdesc(pdesc);
@@ -321,17 +331,17 @@ public class Controller {
 		 file.setMultipartfile(pimg);
 	   
 		 //creating empty image file using the file class
-	   	File f= new File(request.getServletContext().getContextPath()+file.getMultipartfile().getOriginalFilename());
+	   	File f= new File("F:/jee-oxygen/projects/plantshop/src/main/webapp/resources/static/"+file.getMultipartfile().getOriginalFilename());
 	   	f.createNewFile();
 	   	
 	   	//copying the uploaded file to the created location
 	   FileCopyUtils.copy(file.getMultipartfile().getBytes(), f);
 	    System.out.println(f.getPath().toString());
 		
-		 product.setPimg(pname); 
+		 product.setPimg(file.getMultipartfile().getOriginalFilename()); 
 		
-		if(productdao.createProduct(product)) return "success";
-		else return "failure";
+		if(productdao.createProduct(product)) return mv;
+		else return mv;
 	}	
 	
 	@RequestMapping(value="/logout", method = RequestMethod.GET)
@@ -400,11 +410,13 @@ public class Controller {
 		cart.setUser(user);
 		boolean b=cartdao.removeProduct(cart);
 		if(b==true) {
+			System.out.println("success");
 		return "success";
 		}
 		else {
+			System.out.println("failure");
 			return "failure";
-		}
+		}				
 	}
 	
 	//get all cart items

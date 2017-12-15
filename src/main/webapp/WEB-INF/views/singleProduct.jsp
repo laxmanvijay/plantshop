@@ -31,14 +31,38 @@ $(function () {
 
 		<h3 class="w3-text">${product.pdesc }</h3>
 		
-		<button class="w3-button w3-black w3-big" id="${product.pname}" onclick="buyNow(this)">
-		<h5 class="w3-text w3-wide">PROCEED TO PAYMENT</h5>
+		<button id="${product.pname }" class="w3-button w3-black s3-text w3-wide" onclick="addToCart(this)"><h5>ADD TO CART</h5></button>
+		
+		<button class="w3-button w3-black" id="${product.pname}" onclick="buyNow(this)">
+		<h5 class="w3-text w3-wide">BUY</h5>
 		</button>
 	
 	</div>
 <script type="text/javascript">
 function buyNow(x){
 	location.href="buy?name="+x.id;
+}
+
+function addToCart(product){
+	
+	if(${pageContext.request.userPrincipal.name!=null}){
+		$.ajax({
+			type:"GET",
+			url:"http://localhost:4085/plantshop/addToCart?pname="+product.id+"&useremail=${pageContext.request.userPrincipal.name}",
+			success:function(res){
+				if(res=="success"){
+				toastr.success("added to cart");
+				}
+				else{
+					toastr.warning("product already added to cart");
+				}
+			}
+		});
+		
+	}
+	else{
+		toastr.error("please login to add to cart");
+}
 }
 </script>
 

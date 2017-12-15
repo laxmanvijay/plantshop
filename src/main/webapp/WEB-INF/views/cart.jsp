@@ -41,7 +41,7 @@ TOTAL:<p id="totalprice"></p>
 		<tr>
 			<td>{{pname}}</td>
 			<td>
-					<input id="quantity" name="{{pprice}}" style="width:50px" min="1" max="10" class="w3-input" type="number" value="1" onblur="updatePrice(this)"/>
+				<input id="quantity" name="{{pprice}}" style="width:50px" min="1" max="10" class="w3-input" type="number" value="1" onblur="updatePrice(this)" disabled/>
 					
 			</td>
 			<td>{{pprice}}</td>
@@ -90,8 +90,13 @@ TOTAL:<p id="totalprice"></p>
 			type:"GET",
 			url:"http://localhost:4085/plantshop/removeFromCart?pname="+product.id+"&useremail=${pageContext.request.userPrincipal.name}",
 			success:function(data){
+				if(data=="success"){
 				toastr.success("product removed from cart");
 				location.reload();
+				}
+				else{
+					toastr.warning("product not removed");
+				}
 			}
 		})
 	}

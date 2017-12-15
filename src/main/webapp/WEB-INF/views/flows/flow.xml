@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow
+                          http://www.springframework.org/schema/webflow/spring-webflow.xsd">
+
+
+	<var name="user" class="com.dots.dto.Feedback"></var>
+
+    <view-state id="feedback" model="user">
+        <transition on="activate" to="ok"/>
+        <transition on="cancel" to="index"/>
+    </view-state>
+    
+    <action-state id="validate">
+    <evaluate expression="com.dots.flowValidation.validate(user,messageContext)"/>
+    </action-state>
+
+	<view-state id="ok" view="ok">
+	<transition on="toHome" to="toHome"/>
+	</view-state>
+ 
+	<end-state id="toHome" view="externalRedirect:contextRelative:/" />
+	
+</flow>

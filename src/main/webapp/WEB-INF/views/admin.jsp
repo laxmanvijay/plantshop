@@ -7,7 +7,7 @@
 	<div class="w3-half w3-display-middle"> 
 		<div class="">
 	<header class="w3-container w3-white"> 
-			<h1>New user?</h1>
+			<h1>New Product?</h1>
 			<hr>
 			</header>
 		<form action="addProduct" method="post" enctype="multipart/form-data">

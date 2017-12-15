@@ -18,7 +18,7 @@
 					<div>
 						<div class="w3-left">
 							<h3 class="w3-text" id="name">{{pname}}</h3>
-							<img src="resources/static/cup_tea.jpg" width="100%" /> <br>
+							<img src="resources/static/{{pimg}}" width="100%" /> <br>
 							<h4 class="w3-text">{{pdesc}}</h4>
 							<div id="prating{{id}}"></div>
 			
@@ -27,10 +27,8 @@
 						<h4 class="w3-text w3-right">Rs.{{pprice}}</h4>
 					</div>
 					<br>
-					<button id="{{pname}}" class="w3-button w3-black" onclick="addToCart(this)">Add
-						to cart!</button>
-					<button id="{{pname}}" class="w3-button w3-black" onclick="buy(this)">Buy
-						it Now!</button>
+					
+					<button id="{{pname}}" class="w3-button w3-black" onclick="buy(this)">View</button>
 					<security:authorize access="hasRole('ADMIN')">
 						<button id="{{pname}}" class="w3-button w3-black" onclick="deleteItem(this)">Delete Product</button>
 					</security:authorize>
@@ -60,27 +58,7 @@ var template=$("#template").html();
 		})
 		
 	
-		function addToCart(product){
-			
-			if(${pageContext.request.userPrincipal.name!=null}){
-				$.ajax({
-					type:"GET",
-					url:"http://localhost:4085/plantshop/addToCart?pname="+product.id+"&useremail=${pageContext.request.userPrincipal.name}",
-					success:function(res){
-						if(res=="success"){
-						toastr.success("added to cart");
-						}
-						else{
-							toastr.warning("product already added to cart");
-						}
-					}
-				});
-				
-			}
-			else{
-				toastr.error("please login to add to cart");
-		}
-		}
+	
 	</script>
 <script>
 function buy(x){

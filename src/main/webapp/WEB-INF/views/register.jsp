@@ -19,6 +19,11 @@
 			<input
 				placeholder="example@domain.com" data-validation="email"
 				class="w3-input w3-text" type="email" name="email" id="email" onblur="checkRegister(this)">
+			<br>
+				<label for="email">Address</label> <br> 
+			<input
+				class="w3-input w3-text" type="text" name="address" id="address" >
+				
 			<br> <label for="phone">Mobile Number</label> <br>
 			 <input
 				data-validation="number" class="w3-input w3-text" type="text"

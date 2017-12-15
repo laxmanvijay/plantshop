@@ -18,7 +18,8 @@
 	<http auto-config="true">
 
 		<intercept-url pattern="/adminpage" access="hasRole('ADMIN')" />
-		<!-- <intercept-url pattern="/cart" access="hasRole('USER')" /> -->
+
+		 <intercept-url pattern="/cart" access="hasRole('USER') or hasRole('ADMIN')" /> 
 
 		<intercept-url pattern="/**" access="permitAll" />
 
